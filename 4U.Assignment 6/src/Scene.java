@@ -1,6 +1,7 @@
 
-import java.io.FileReader;
-import java.net.URL;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
@@ -10,49 +11,53 @@ import java.util.Scanner;
  */
 /**
  *
- * @author ratid6445
+ * @author niralikantaria
  */
 public class Scene {
 
-    String[] scenes;
-    FileReader textFile;
+    private ArrayList<Screen> screens;
+    private String initialHallway;
+    public String initialDirection;
 
-    public Scene() {
+    public Scene(String fileName) {
         try {
-            textFile = new FileReader("Locations");
-            URL url = Scene.class.getResource("Locations.txt");
+            Scanner input = new Scanner(new File(fileName));
+            this.initialHallway = input.next();
+            this.initialDirection = input.next();
 
-            textFile = new FileReader(url.getFile());
-        } catch (Exception e) {
-            // handle any errors
-            // print out the lovely red errors
-            e.printStackTrace();
-            //exit the program
-            System.exit(0);
-        }
+            while (input.hasNext()) {
+                String hallway = input.nextLine();
 
-        Scanner in = new Scanner(textFile);
+                for (int i = 0; i < 4; i++) {
+                    Screen s = new Screen(hallway, input);
+                    screens.add(s);
+                }
+            }
+            for (int i = 0; i < 4; i++) {
 
-        // get the start position
-        String startLoc = in.nextLine();
+            }
 
-        // move to the next line
-        String startDir = in.nextLine();
-
-        // go through the file
-        for (int i = 0; i < 122; i++) {
-            String dir = in.next();
-            String image = in.next();
-            String isBlocked = in.next();
-            String nextDir = in.next();
-            String nextLoc = in.nextLine().trim();
-            // create the scene using that information
-            SceneInputs scenes = new SceneInputs(dir);
-            scenes.image(image);
-            scenes.isBlocked(isBlocked);
-            scenes.nextDirection(nextDir);
-            scenes.nextLoc(nextLoc);
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
         }
     }
+ 
+    public Screen getScreen(String hallway, String direction){
+        for(Screen s : screens){
+            if(s.getHallway().equals(hallway) && s.getDirection().equals(direction)){
+                return s;
+            }
+        }
+        return null;
+    }
     
+    public String getInitialHallway(){
+        return initialHallway;
+    }
+    
+    public String getInitialDirection(){
+        return initialDirection;
+    }
+
+
 }

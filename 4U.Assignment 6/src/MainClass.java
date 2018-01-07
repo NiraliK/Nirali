@@ -6,16 +6,17 @@
 
 /**
  *
- * @author andreeagavris
+ * @author niralikantaria
  */
-public class Player {
+public class MainClass {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       Reader read = new Reader();
-        
+        GUI gui = new GUI();
+        gui.setVisible(true);
+        Scene scene = new Scene("images/pic.txt");
     }
     
 }
