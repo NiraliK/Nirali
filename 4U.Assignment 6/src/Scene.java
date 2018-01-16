@@ -14,22 +14,30 @@ import java.util.Scanner;
  * @author niralikantaria
  */
 public class Scene {
-
+    
+    //array created to go through the screens 
     private ArrayList<Screen> screens;
+    //instance varibles initialized 
     private String initialHallway;
     public String initialDirection;
 
+    //method created 
     public Scene(String fileName) {
         try {
+            //scanner for textfile
             Scanner input = new Scanner(new File(fileName));
+            //store the intial hallway 
             this.initialHallway = input.next();
+            //store the intial direction 
             this.initialDirection = input.next();
-
+            
+            //while loop created to go to the end of the file 
             while (input.hasNext()) {
                 String hallway = input.nextLine();
-
+                //for loop created to create the screens by using the scanner 
                 for (int i = 0; i < 4; i++) {
                     Screen s = new Screen(hallway, input);
+                    //screen added every time 
                     screens.add(s);
                 }
             }

@@ -9,7 +9,7 @@
  * @author niralikantaria
  */
 public class Controller {
-
+    //variables indidcated 
     private GUI gui;
     private Scene scene;
     private String hallway;
